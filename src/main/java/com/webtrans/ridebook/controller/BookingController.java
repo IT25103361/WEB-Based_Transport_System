@@ -48,6 +48,30 @@ public class BookingController {
         return "redirect:/ride/passenger";
     }
 
+    // Passenger cancels the booking
+    @GetMapping("/cancel/{id}")
+    public String cancelBooking(@PathVariable Long id) {
+        try {
+            Booking booking = bookingRepository.findById(id).orElse(null);
+            if (booking != null && ("PENDING".equalsIgnoreCase(booking.getStatus()) || "ACCEPTED".equalsIgnoreCase(booking.getStatus()))) {
+                // Driver kenek already accept karala nam, e driverwa aye AVAILABLE karannoni
+                Driver driver = booking.getDriver();
+                if (driver != null) {
+                    driver.setStatus("AVAILABLE");
+                    driverRepository.save(driver);
+                }
+
+                // Status eka CANCELLED kiyala update karanawa (Anuwa delete karannath puluwan)
+                booking.setStatus("CANCELLED");
+                booking.setDriver(null);
+                bookingRepository.save(booking);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/ride/passenger";
+    }
+
     @GetMapping("/driver")
     public String driverView(Model model) {
         List<Booking> bookings = bookingRepository.findAll();
@@ -60,47 +84,84 @@ public class BookingController {
 
     @PostMapping("/driver/register")
     public String registerDriver(@ModelAttribute Driver driver) {
-        driver.setStatus("AVAILABLE");
+        if (driver.getStatus() == null || driver.getStatus().trim().isEmpty()) {
+            driver.setStatus("AVAILABLE");
+        }
         driverRepository.save(driver);
         return "redirect:/ride/driver";
     }
 
-    @PostMapping("/accept/{id}")
-    public String acceptRide(@PathVariable Long id, @RequestParam Long driverId) {
-        Booking booking = bookingRepository.findById(id).orElse(null);
-        Driver driver = driverRepository.findById(driverId).orElse(null);
-
-        if (booking != null && driver != null && "PENDING".equals(booking.getStatus())) {
-            booking.setDriver(driver);
-            booking.setStatus("ACCEPTED");
-            bookingRepository.save(booking);
-
-            driver.setStatus("BUSY");
-            driverRepository.save(driver);
+    @GetMapping("/driver/toggle/{id}")
+    public String toggleDriverStatus(@PathVariable Long id) {
+        try {
+            Driver driver = driverRepository.findById(id).orElse(null);
+            if (driver != null) {
+                if ("AVAILABLE".equals(driver.getStatus())) {
+                    driver.setStatus("BUSY");
+                } else {
+                    driver.setStatus("AVAILABLE");
+                }
+                driverRepository.save(driver);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return "redirect:/ride/driver";
+    }
+
+    @PostMapping("/accept/{id}")
+    public String acceptRide(@PathVariable Long id, @RequestParam(name = "driverId", required = false) String driverIdStr) {
+        if (driverIdStr == null || driverIdStr.trim().isEmpty()) {
+            return "redirect:/ride/driver";
+        }
+
+        try {
+            Long driverId = Long.parseLong(driverIdStr.trim());
+            Booking booking = bookingRepository.findById(id).orElse(null);
+            Driver driver = driverRepository.findById(driverId).orElse(null);
+
+            if (booking != null && driver != null && booking.getStatus() != null && "PENDING".equalsIgnoreCase(booking.getStatus().trim())) {
+                booking.setDriver(driver);
+                booking.setStatus("ACCEPTED");
+                bookingRepository.save(booking);
+
+                driver.setStatus("BUSY");
+                driverRepository.save(driver);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return "redirect:/ride/driver";
     }
 
     @GetMapping("/complete/{id}")
     public String completeRide(@PathVariable Long id) {
-        Booking booking = bookingRepository.findById(id).orElse(null);
-        if (booking != null) {
-            booking.setStatus("COMPLETED");
-            bookingRepository.save(booking);
+        try {
+            Booking booking = bookingRepository.findById(id).orElse(null);
+            if (booking != null) {
+                booking.setStatus("COMPLETED");
+                bookingRepository.save(booking);
 
-            Driver driver = booking.getDriver();
-            if (driver != null) {
-                driver.setStatus("AVAILABLE");
-                driverRepository.save(driver);
+                Driver driver = booking.getDriver();
+                if (driver != null) {
+                    driver.setStatus("AVAILABLE");
+                    driverRepository.save(driver);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return "redirect:/ride/driver";
     }
 
-    // Past booking delete karne ke liye naya mapping
     @GetMapping("/delete/{id}")
     public String deleteBooking(@PathVariable Long id) {
-        bookingRepository.deleteById(id);
+        try {
+            bookingRepository.deleteById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "redirect:/ride/driver";
     }
 }

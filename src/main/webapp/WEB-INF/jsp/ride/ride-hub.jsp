@@ -9,15 +9,23 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <style>
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+            url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
         .role-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: none;
             border-radius: 16px;
             overflow: hidden;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
         }
         .role-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
         .icon-box {
             width: 80px;
@@ -28,12 +36,16 @@
             border-radius: 50%;
             margin: 0 auto 20px auto;
         }
+        .glass-navbar {
+            background: rgba(33, 37, 41, 0.9) !important;
+            backdrop-filter: blur(10px);
+        }
     </style>
 </head>
-<body class="bg-light">
+<body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark glass-navbar shadow-sm sticky-top">
     <div class="container px-4">
         <a class="navbar-brand fw-bold" href="/ride/home">
             <i class="fa-solid fa-taxi text-warning me-2"></i> NEXT GO — Ride Management
@@ -46,17 +58,17 @@
 
 <div class="container py-5">
     <div class="text-center mb-5">
-        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold mb-2">
+        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold mb-2 shadow-sm">
             <i class="fa-solid fa-compass me-1"></i> Module Selection
         </span>
-        <h2 class="fw-bold text-dark display-6">Select Your Ride Portal</h2>
-        <p class="text-muted col-lg-6 mx-auto">Choose whether you want to book a ride as a Passenger or view assigned rides as a Driver.</p>
+        <h2 class="fw-bold text-white display-6">Select Your Ride Portal</h2>
+        <p class="text-white-50 col-lg-6 mx-auto">Choose whether you want to book a ride as a Passenger or view assigned rides as a Driver.</p>
     </div>
 
     <div class="row justify-content-center g-4">
         <!-- Option 1: Passenger Portal -->
         <div class="col-md-5">
-            <div class="card role-card shadow-sm h-100 bg-white border-top border-primary border-4">
+            <div class="card role-card shadow h-100 border-top border-primary border-4">
                 <div class="card-body p-5 text-center">
                     <div class="icon-box bg-primary bg-opacity-10 text-primary shadow-sm">
                         <i class="fa-solid fa-user-tag fa-2x"></i>
@@ -72,7 +84,7 @@
 
         <!-- Option 2: Driver Portal -->
         <div class="col-md-5">
-            <div class="card role-card shadow-sm h-100 bg-white border-top border-success border-4">
+            <div class="card role-card shadow h-100 border-top border-success border-4">
                 <div class="card-body p-5 text-center">
                     <div class="icon-box bg-success bg-opacity-10 text-success shadow-sm">
                         <i class="fa-solid fa-id-badge fa-2x"></i>
@@ -89,7 +101,7 @@
 </div>
 
 <!-- Footer -->
-<footer class="text-center py-4 text-muted small border-top mt-5">
+<footer class="text-center py-4 text-white-50 small border-top border-secondary mt-5 bg-dark bg-opacity-75">
     <p class="mb-0">NEXT GO Transport System &copy; 2026 — Ride Management Module</p>
 </footer>
 

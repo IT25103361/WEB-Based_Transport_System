@@ -48,6 +48,16 @@
                             <input type="text" name="vehicleNumber" class="form-control" placeholder="e.g. WP-ABC-1234" required />
                         </div>
                         <div class="mb-3">
+                            <label class="form-label fw-semibold small text-muted">Vehicle Type</label>
+                            <select name="vehicleType" class="form-select" required>
+                                <option value="">Select Vehicle Type</option>
+                                <option value="Car">Car</option>
+                                <option value="Van">Van</option>
+                                <option value="Bike">Bike</option>
+                                <option value="Tuk">Tuk</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label fw-semibold small text-muted">Phone Number</label>
                             <input type="text" name="phoneNumber" class="form-control" placeholder="0771234567" required />
                         </div>
@@ -58,10 +68,11 @@
                 </div>
             </div>
 
-            <!-- Drivers Status Box -->
+            <!-- Drivers Status Box with Toggle -->
             <div class="card shadow-sm border-0 rounded-4">
-                <div class="card-header bg-dark text-white py-2 rounded-top-4">
-                    <h6 class="mb-0 fw-bold"><i class="fa-solid fa-users me-2"></i> Available Drivers in System</h6>
+                <div class="card-header bg-dark text-white py-2 rounded-top-4 d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0 fw-bold"><i class="fa-solid fa-users me-2"></i> Drivers & Status</h6>
+                    <span class="text-xs text-muted small text-white-50">Click badge to toggle</span>
                 </div>
                 <div class="card-body p-3">
                     <ul class="list-group list-group-flush small">
@@ -69,11 +80,18 @@
                             <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 <div>
                                     <span class="fw-bold">${d.driverName}</span><br>
-                                    <span class="text-muted" style="font-size: 0.75rem;">${d.vehicleNumber}</span>
+                                    <span class="text-muted" style="font-size: 0.75rem;">${d.vehicleType} (${d.vehicleNumber})</span>
                                 </div>
-                                <span class="badge bg-${d.status == 'AVAILABLE' ? 'success' : 'secondary'}">${d.status}</span>
+                                <a href="/ride/driver/toggle/${d.id}" class="text-decoration-none" title="Click to toggle status">
+                                    <span class="badge bg-${d.status == 'AVAILABLE' ? 'success' : 'secondary'}">
+                                        ${d.status} <i class="fa-solid fa-rotate ms-1"></i>
+                                    </span>
+                                </a>
                             </li>
                         </c:forEach>
+                        <c:if test="${empty drivers}">
+                            <li class="list-group-item text-center text-muted border-0">No drivers registered yet.</li>
+                        </c:if>
                     </ul>
                 </div>
             </div>
@@ -104,9 +122,15 @@
                                         <span class="small text-muted">${b.passengerName}</span>
                                     </td>
                                     <td>
-                                        <div class="small"><i class="fa-solid fa-location-dot text-danger me-1"></i> ${b.pickupLocation}</div>
-                                        <div class="small"><i class="fa-solid fa-flag-checkered text-success me-1"></i> ${b.dropLocation}</div>
-                                        <div class="text-xs text-muted mt-1">
+                                        <div class="p-2 bg-white border rounded-3 shadow-sm mb-1" style="font-size: 0.85rem;">
+                                            <div class="text-truncate mb-1" style="max-width: 280px;" title="${b.pickupLocation}">
+                                                <i class="fa-solid fa-location-dot text-danger me-1"></i> <strong>From:</strong> ${b.pickupLocation}
+                                            </div>
+                                            <div class="text-truncate" style="max-width: 280px;" title="${b.dropLocation}">
+                                                <i class="fa-solid fa-flag-checkered text-success me-1"></i> <strong>To:</strong> ${b.dropLocation}
+                                            </div>
+                                        </div>
+                                        <div class="text-xs text-muted">
                                             <i class="fa-solid fa-car text-secondary me-1"></i> ${b.vehicleType} |
                                             <span class="fw-bold text-dark">LKR ${b.fare != null ? b.fare : '0'}</span>
                                         </div>
@@ -127,7 +151,7 @@
                                                         <option value="">Select Yourself</option>
                                                         <c:forEach var="d" items="${drivers}">
                                                             <c:if test="${d.status == 'AVAILABLE'}">
-                                                                <option value="${d.id}">${d.driverName}</option>
+                                                                <option value="${d.id}">${d.driverName} (${d.vehicleType})</option>
                                                             </c:if>
                                                         </c:forEach>
                                                     </select>
@@ -140,7 +164,6 @@
                                                 </a>
                                             </c:when>
                                             <c:otherwise>
-                                                <!-- Completed / Finished rides ke liye delete button -->
                                                 <a href="/ride/delete/${b.id}" class="btn btn-outline-danger btn-sm fw-bold">
                                                     <i class="fa-solid fa-trash me-1"></i> Delete
                                                 </a>

@@ -173,7 +173,7 @@
                                 <th class="ps-3">ID / Passenger</th>
                                 <th>Route, Vehicle & Fare</th>
                                 <th>Status / Driver</th>
-                                <th class="text-end pe-3">Payment</th>
+                                <th class="text-end pe-3">Action / Payment</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -192,14 +192,21 @@
                                         </div>
                                     </td>
                                     <td>
-                                            <span class="badge bg-${b.status == 'COMPLETED' ? 'success' : (b.status == 'ASSIGNED' ? 'primary' : 'warning text-dark')}">
-                                                    ${b.status}
-                                            </span><br>
+                                        <span class="badge bg-${b.status == 'COMPLETED' ? 'success' : (b.status == 'ACCEPTED' ? 'primary' : (b.status == 'CANCELLED' ? 'danger' : 'warning text-dark'))}">
+                                                ${b.status}
+                                        </span><br>
                                         <span class="text-xs text-muted small">
                                                 ${b.driver != null ? b.driver.driverName : 'No Driver Assigned'}
                                         </span>
                                     </td>
                                     <td class="text-end pe-3">
+                                        <c:choose>
+                                            <c:when test="${b.status == 'PENDING' || b.status == 'ACCEPTED'}">
+                                                <a href="/ride/cancel/${b.id}" class="btn btn-outline-danger btn-sm fw-bold mb-1" onclick="return confirm('Are you sure you want to cancel this ride?');">
+                                                    <i class="fa-solid fa-ban me-1"></i> Cancel
+                                                </a><br>
+                                            </c:when>
+                                        </c:choose>
                                         <span class="badge bg-secondary">${b.paymentMethod != null ? b.paymentMethod : 'Cash'}</span>
                                     </td>
                                 </tr>

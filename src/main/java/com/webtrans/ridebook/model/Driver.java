@@ -3,7 +3,7 @@ package com.webtrans.ridebook.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "driver")
+@Table(name = "drivers")
 public class Driver {
 
     @Id
@@ -12,6 +12,7 @@ public class Driver {
 
     private String driverName;
     private String vehicleNumber;
+    private String vehicleType;
     private String phoneNumber;
     private String status;     // e.g., AVAILABLE, BUSY
 
@@ -26,6 +27,9 @@ public class Driver {
 
     public String getVehicleNumber() { return vehicleNumber; }
     public void setVehicleNumber(String vehicleNumber) { this.vehicleNumber = vehicleNumber; }
+
+    public String getVehicleType() { return vehicleType; }
+    public void setVehicleType(String vehicleType) { this.vehicleType = vehicleType; }
 
     public String getPhoneNumber() { return phoneNumber; }
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
