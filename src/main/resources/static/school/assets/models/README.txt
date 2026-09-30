@@ -1,0 +1,1 @@
+Place the supplied school-bus.glb model in this folder as school-bus.glb. The dashboard viewer references assets/models/school-bus.glb and retains the local SVG fallback if the model or 3D library is unavailable.
