@@ -1,12 +1,12 @@
-package com.webtrans.ridebook;
+package com.webtrans;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RideBookApplication {
+public class WebTransApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(RideBookApplication.class, args);
+        SpringApplication.run(WebTransApplication.class, args);
     }
 }

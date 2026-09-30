@@ -118,7 +118,9 @@
           </div>
           <h5 class="fw-bold text-dark">3. School Student Transport</h5>
           <p class="text-muted small">Reliable van and bus pooling system for school children with monthly packages.</p>
-          <button class="btn btn-outline-warning btn-sm w-100 fw-semibold text-dark mt-2" disabled>Member Module (In Progress)</button>
+          <a href="${pageContext.request.contextPath}/school/index" class="btn btn-warning btn-sm w-100 fw-semibold text-dark mt-2 shadow-sm">
+            <i class="fa-solid fa-arrow-right me-1"></i> Open School Portal
+          </a>
         </div>
       </div>
     </div>

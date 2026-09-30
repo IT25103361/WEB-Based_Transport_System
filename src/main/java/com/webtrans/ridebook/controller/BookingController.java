@@ -24,12 +24,12 @@ public class BookingController {
 
     @GetMapping({"/", "/home"})
     public String home() {
-        return "home";
+        return "ride/home";
     }
 
     @GetMapping("/ride-hub")
     public String rideHub() {
-        return "ride-hub";
+        return "ride/ride-hub";
     }
 
     @GetMapping("/passenger")
@@ -37,7 +37,7 @@ public class BookingController {
         model.addAttribute("booking", new Booking());
         List<Booking> bookings = bookingRepository.findAll();
         model.addAttribute("bookings", bookings != null ? bookings : new ArrayList<>());
-        return "passenger";
+        return "ride/passenger";
     }
 
     @PostMapping("/book")
@@ -79,7 +79,7 @@ public class BookingController {
 
         model.addAttribute("bookings", bookings != null ? bookings : new ArrayList<>());
         model.addAttribute("drivers", drivers != null ? drivers : new ArrayList<>());
-        return "driver";
+        return "ride/driver";
     }
 
     @PostMapping("/driver/register")
