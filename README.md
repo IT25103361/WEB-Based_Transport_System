@@ -53,3 +53,9 @@ Use the existing application entry point and Maven project. Do not add a separat
 - Keep SQL passwords, personal connection settings and local-only debug settings out of commits.
 - Leave out ZIP backups, target/, compiled .class files and personal IDE files.
 Database records are stored in SQL Server, not in the Git repository. Each member needs a working local database connection to run the project.
+
+# Update Cloned Data 
+    - in terminal
+1. git status
+2. git switch main
+git pull --ff-only origin main
