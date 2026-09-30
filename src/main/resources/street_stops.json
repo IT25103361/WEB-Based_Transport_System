@@ -1,0 +1,72 @@
+[
+  {
+    "seq": 1,
+    "name": "Kottawa Bus Terminal",
+    "lat": 6.840199,
+    "lon": 79.965426,
+    "idx": 0
+  },
+  {
+    "seq": 2,
+    "name": "Dharmapala School Stop",
+    "lat": 6.844896,
+    "lon": 79.97032,
+    "idx": 48
+  },
+  {
+    "seq": 3,
+    "name": "Malapalla Junction",
+    "lat": 6.854895,
+    "lon": 79.981137,
+    "idx": 100
+  },
+  {
+    "seq": 4,
+    "name": "Rukmalgama Housing Scheme",
+    "lat": 6.86494,
+    "lon": 79.995866,
+    "idx": 155
+  },
+  {
+    "seq": 5,
+    "name": "Athurugiriya Clock Tower",
+    "lat": 6.879107,
+    "lon": 79.986004,
+    "idx": 210
+  },
+  {
+    "seq": 6,
+    "name": "Oruwala Junction",
+    "lat": 6.885251,
+    "lon": 79.983815,
+    "idx": 260
+  },
+  {
+    "seq": 7,
+    "name": "Habarakada Junction",
+    "lat": 6.893405,
+    "lon": 79.979121,
+    "idx": 315
+  },
+  {
+    "seq": 8,
+    "name": "Korathota Temple Stop",
+    "lat": 6.898477,
+    "lon": 79.971471,
+    "idx": 370
+  },
+  {
+    "seq": 9,
+    "name": "Pittugala Junction",
+    "lat": 6.907323,
+    "lon": 79.973843,
+    "idx": 420
+  },
+  {
+    "seq": 10,
+    "name": "SLIIT Campus Main Gate",
+    "lat": 6.914707,
+    "lon": 79.972646,
+    "idx": 472
+  }
+]

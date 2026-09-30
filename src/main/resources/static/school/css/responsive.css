@@ -1,0 +1,221 @@
+/* -----------------------------------------------------------------------------
+   1. TABLET & COMPACT SCREENS (<= 900px)
+   ----------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  /* Landing adaptations */
+  .hero { padding: 0 5%; height: auto; min-height: 760px; }
+  .hero-copy { padding-top: 80px; }
+  .hero-visual { width: 680px; right: -180px; top: 49%; }
+  .steps { grid-template-columns: repeat(2, 1fr); }
+  .safety { gap: 40px; }
+
+  /* Mobile & Tablet Navigation Drawer (Off-Canvas) */
+  .mobile-nav-toggle {
+    display: inline-flex !important;
+  }
+
+  .sidebar-close-btn {
+    display: inline-flex !important;
+  }
+
+  .sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    width: 280px !important;
+    max-width: 85vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    z-index: 10001 !important;
+    transform: translateX(-100%) !important;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: none !important;
+    padding: 24px 18px !important;
+    overflow-y: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  [data-theme="dark"] .sidebar {
+    background: #080f1e !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+
+  [data-theme="light"] .sidebar {
+    background: #ffffff !important;
+    border-right: 1px solid rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .sidebar.open {
+    transform: translateX(0) !important;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  .sidebar .brand {
+    font-size: 20px !important;
+    padding: 0 6px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .sidebar .brand span {
+    font-size: 20px !important;
+  }
+
+  .nav-link {
+    justify-content: flex-start !important;
+    padding: 12px 14px !important;
+  }
+
+  .nav-link span:last-child {
+    display: inline !important;
+  }
+
+  /* Main content full-width */
+  .app-main {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 24px 20px 40px !important;
+  }
+
+  /* Topbar flexibility */
+  .topbar {
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .topbar-left-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .topbar-right-controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* Tracking layout on tablet */
+  .tracking-layout { grid-template-columns: 1fr; }
+  .tracking-panel {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    align-items: end;
+  }
+  .tracking-panel h3, .track-bus { grid-column: 1 / -1; }
+  .large-eta { margin: 0; }
+  .track-stats { display: contents; }
+  .track-stat { margin: 0; }
+  .timeline-stops { grid-template-columns: 1fr 1fr; }
+
+  .student-card { grid-template-columns: auto 1fr; }
+  .student-actions { grid-column: 1 / -1; }
+}
+
+/* -----------------------------------------------------------------------------
+   2. MOBILE SCREENS (<= 620px)
+   ----------------------------------------------------------------------------- */
+@media (max-width: 620px) {
+  body { font-size: 14px; }
+  .hero { min-height: 690px; }
+  .public-nav { height: 75px; }
+  .public-nav > div > a:not(.button) { display: none; }
+  .hero-copy { padding-top: 52px; }
+  .hero-copy h1 { font-size: 38px; line-height: 1.15; }
+  .hero-visual { top: 56%; right: -165px; width: 590px; }
+  .float-pill.eta { bottom: 13%; left: 14%; }
+  .section { padding: 80px 20px; }
+  .steps { grid-template-columns: 1fr; }
+  .safety { grid-template-columns: 1fr; padding-top: 25px; }
+  .safety-image { order: 2; }
+  .final-cta { margin: 0 20px 60px; padding: 48px 22px; }
+  footer { display: grid; grid-template-columns: 1fr 1fr; }
+  footer div { grid-column: 1 / -1; order: 3; }
+
+  .login-page { padding: 0; }
+  .login-shell { min-height: 100vh; border: 0; border-radius: 0; grid-template-columns: 1fr; }
+  .login-art { min-height: 270px; padding: 28px; }
+  .login-art h1 { font-size: 28px; max-width: 300px; }
+  .login-art img { position: absolute; width: 440px; right: -95px; bottom: -36px; }
+  .login-form { padding: 30px 20px; min-height: 480px; }
+
+  /* App main container on phone */
+  .app-main {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 18px 14px 40px !important;
+  }
+
+  /* Hide bottom bar since full navigation is provided by left corner drawer */
+  .mobile-nav {
+    display: none !important;
+  }
+
+  /* Topbar header on phone */
+  .topbar {
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .topbar-left-group {
+    gap: 10px;
+  }
+  .mobile-nav-toggle {
+    width: 38px;
+    height: 38px;
+  }
+  .topbar h1 { font-size: 21px; }
+  .topbar p { font-size: 12.5px; }
+  .topbar-right-controls {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+  .topbar-child-selector {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  /* Dashboard mobile */
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .detail-grid { grid-template-columns: 1fr; }
+  .student-card { padding: 16px; }
+  .student-meta { flex-wrap: wrap; }
+
+  /* Tracking mobile */
+  .tracking-panel { grid-template-columns: 1fr; }
+  .map-panel { height: 340px; }
+  .timeline-stops { grid-template-columns: 1fr; }
+
+  /* Schedule mobile */
+  .schedule-card { padding: 16px; }
+  .schedule-item { grid-template-columns: 70px 20px 1fr; }
+  .schedule-item:after { left: 77px; }
+
+  /* Profile mobile */
+  .profile-card { padding: 20px; }
+  .profile-row { display: grid; gap: 4px; }
+  .profile-actions .button { width: 100%; }
+}
+
+/* Landing Header Responsive */
+@media (max-width: 900px) {
+  .public-nav { height: 76px; padding: 0 20px; }
+  .landing-header .brand { font-size: 22px; }
+  .landing-header .brand-icon { width: 38px; height: 38px; }
+  .nav-links-wrap { gap: 16px; }
+}
+
+@media (max-width: 620px) {
+  .public-nav { height: 68px; padding: 0 16px; }
+  .landing-header .brand { font-size: 20px; }
+  .landing-header .brand-icon { width: 34px; height: 34px; }
+  .nav-links-wrap { gap: 10px; }
+  .landing-header .theme-toggle-btn { padding: 7px 12px; font-size: 13px; }
+  .landing-header .header-login-btn { padding: 8px 16px; font-size: 13.5px; }
+}

@@ -1,0 +1,426 @@
+/* =============================================================================
+   NEXTGO Dashboard - Clean Read-Only Telemetry Overview
+   Matches requested design: Hero Banner with School Bus, 3 Metric Cards, 2-Column Split
+   ============================================================================= */
+
+.dash-canvas {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: none;
+  position: relative;
+  z-index: 1;
+}
+
+/* -----------------------------------------------------------------------------
+   1. HERO BANNER (Soft Sage / Teal Aesthetic)
+   ----------------------------------------------------------------------------- */
+.dash-hero-card {
+  background: linear-gradient(135deg, #e7f5ee 0%, #edf7f2 60%, #f6fcf8 100%);
+  border: 1px solid #cce8dc;
+  border-radius: 22px;
+  padding: 36px 44px;
+  box-shadow: 0 6px 24px rgba(20, 80, 60, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+[data-theme="dark"] .dash-hero-card {
+  background: linear-gradient(135deg, #0d2820 0%, #0d1e2e 60%, #0d1b2a 100%);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.dash-hero-content {
+  flex: 1;
+  max-width: 580px;
+}
+
+.dash-hero-eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #166534;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: inline-block;
+}
+
+[data-theme="dark"] .dash-hero-eyebrow {
+  color: #34d399;
+}
+
+.dash-hero-title {
+  font-size: clamp(28px, 3.6vw, 42px);
+  font-weight: 800;
+  color: #14532d;
+  margin: 0 0 8px;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+[data-theme="dark"] .dash-hero-title {
+  color: #f0fdf4;
+}
+
+.dash-hero-subtitle {
+  color: #4b6358;
+  font-size: 15px;
+  margin: 0 0 24px;
+  font-weight: 500;
+}
+
+[data-theme="dark"] .dash-hero-subtitle {
+  color: #94a3b8;
+}
+
+.dash-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #134e3f;
+  color: #ffffff;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(19, 78, 63, 0.3);
+  transition: all 0.2s ease;
+}
+
+.dash-hero-btn:hover {
+  background: #0f3f33;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(19, 78, 63, 0.4);
+}
+
+[data-theme="dark"] .dash-hero-btn {
+  background: #10b981;
+  color: #06241a;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+}
+
+[data-theme="dark"] .dash-hero-btn:hover {
+  background: #34d399;
+}
+
+.dash-hero-art {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 320px;
+}
+
+.school-bus-vector {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.bus-ground-shadow {
+  color: rgba(20, 60, 45, 0.12);
+}
+
+[data-theme="dark"] .bus-ground-shadow {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.dash-hero-caption {
+  font-size: 11.5px;
+  color: #60796e;
+  margin-top: 6px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+[data-theme="dark"] .dash-hero-caption {
+  color: #94a3b8;
+}
+
+/* -----------------------------------------------------------------------------
+   2. THREE METRIC SUMMARY CARDS
+   ----------------------------------------------------------------------------- */
+.dash-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .dash-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  .dash-hero-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 28px 24px;
+  }
+  .dash-hero-art {
+    width: 100%;
+    max-width: 280px;
+    align-self: center;
+  }
+}
+
+.metric-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--cyan);
+}
+
+.metric-eyebrow {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #166534;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: block;
+}
+
+[data-theme="dark"] .metric-eyebrow {
+  color: #34d399;
+}
+
+.metric-value-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metric-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.metric-pill {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: #e0f2fe;
+  color: #0284c7;
+  border: 1px solid #bae6fd;
+  display: inline-flex;
+  align-items: center;
+}
+
+[data-theme="dark"] .metric-pill {
+  background: rgba(40, 199, 250, 0.15);
+  color: #28c7fa;
+  border-color: rgba(40, 199, 250, 0.35);
+}
+
+.metric-sub {
+  font-size: 12.5px;
+  color: var(--muted);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* -----------------------------------------------------------------------------
+   3. TWO-COLUMN SPLIT GRID (Read-only Comprehensive Telemetry + Updates)
+   ----------------------------------------------------------------------------- */
+.dash-split-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 980px) {
+  .dash-split-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dash-panel-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px 30px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-card-head {
+  margin-bottom: 20px;
+}
+
+.panel-eyebrow {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #166534;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: block;
+}
+
+[data-theme="dark"] .panel-eyebrow {
+  color: #34d399;
+}
+
+.panel-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 4px;
+  letter-spacing: -0.02em;
+}
+
+.panel-subtitle {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin: 0;
+  font-weight: 500;
+}
+
+.telemetry-rows-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.telemetry-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  font-size: 13.5px;
+  gap: 12px;
+  transition: background-color 0.15s ease;
+}
+
+.telemetry-row:hover {
+  background: var(--card-hover);
+}
+
+.row-label {
+  color: var(--muted);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.row-value {
+  color: var(--text);
+  font-weight: 700;
+  text-align: right;
+  word-break: break-word;
+}
+
+.row-tag {
+  font-size: 10.5px;
+  font-weight: 700;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 2px 6px;
+  border-radius: 6px;
+  margin-left: 4px;
+  color: var(--muted);
+}
+
+.row-speed {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.status-indicator-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  margin-right: 5px;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+}
+
+.updates-feed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.update-feed-item {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  transition: all 0.15s ease;
+}
+
+.update-feed-item:hover {
+  background: var(--card-hover);
+  border-color: var(--cyan);
+}
+
+.update-item-title {
+  margin: 0 0 4px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.update-item-msg {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.panel-card-foot {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.panel-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #166534;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .panel-link {
+  color: #34d399;
+}
+
+.panel-link:hover {
+  gap: 10px;
+  text-decoration: underline;
+}
