@@ -1,61 +1,140 @@
-# WEB-Based_Transport_System
-NEXT GO web based transport system
+# NEXT GO — Integrated Transport & Services Platform
 
-# Where to add your files
-All paths below start from the repository root, which is the folder containing pom.xml, mvnw and src.
-Keep each feature inside its own module folders in the existing project. Do not upload a separate IntelliJ project, another src folder inside a module, or a ZIP containing your work.
+**One platform for everyday mobility, deliveries and emergency service requests.**
 
-| Module | Java source | JSP pages | CSS, JavaScript and images |
-| --- | --- | --- | --- |
-| Ride booking | `src/main/java/com/webtrans/ridebook/` | `src/main/webapp/WEB-INF/jsp/ride/` | Use `src/main/resources/static/ride/` for new external assets. |
-| School transport | `src/main/java/com/webtrans/school/` | `src/main/webapp/WEB-INF/jsp/school/` | `src/main/resources/static/school/` |
+NEXT GO is a web-based application that brings six transport and service modules into a single platform: Ride Management, Courier Delivery, School Student Transport, Food & Grocery, Vehicle Rental, and Emergency Services.
 
-# Other modules
-Agree on one lowercase module name before adding your feature. Replace <module> in the following paths with that name; do not create a folder literally named <module>.
+Developed as a collaborative Software Engineering project at the **Sri Lanka Institute of Information Technology (SLIIT)**, the system applies object-oriented programming, layered architecture, database persistence and selected design patterns to practical service workflows.
 
-| File type | Location |
-| --- | --- |
-| Controllers | `src/main/java/com/webtrans/<module>/controller/` |
-| Entities / models | `src/main/java/com/webtrans/<module>/model/` |
-| Repositories | `src/main/java/com/webtrans/<module>/repository/` |
-| Services | `src/main/java/com/webtrans/<module>/service/` |
-| Request and response DTOs | `src/main/java/com/webtrans/<module>/dto/` |
-| Module exceptions | `src/main/java/com/webtrans/<module>/exception/` |
-| Utility classes | `src/main/java/com/webtrans/<module>/util/` |
-| JSP pages | `src/main/webapp/WEB-INF/jsp/<module>/` |
-| CSS | `src/main/resources/static/<module>/css/` |
-| JavaScript | `src/main/resources/static/<module>/js/` |
-| Images | `src/main/resources/static/<module>/assets/images/` |
-| Icons | `src/main/resources/static/<module>/assets/icons/` |
-| Tests | `src/test/java/com/webtrans/<module>/` |
+## Project Overview
 
-# Branches and shared files
-main contains the integrated project. Each member submits their module on their assigned branch, then opens a pull request into main.
+Managing transport and delivery services through separate systems can make booking, tracking and record management difficult. NEXT GO provides a central service hub where users can access the relevant module, submit requests and monitor their activities.
 
-| Member / branch | Confirmed module |
-| --- | --- |
-| `IT25103361` | Ride booking |
-| `IT25101086` | School transport |
+Each module maintains its own business logic while participating in the integrated application. This structure supports independent development and helps keep responsibilities clear across the project.
 
-Other member branches are IT25100281, IT25101543, IT25102355 and IT25103030. Each member should use their assigned branch and the agreed folder name for their feature. Branch names identify members; source folders identify modules.
-These files are shared across the application. Coordinate changes to them with the team:
-- pom.xml — project dependencies and build settings.
-- src/main/java/com/webtrans/WebTransApplication.java — application entry point.
-- src/main/resources/application.properties — shared application configuration.
-- src/main/webapp/WEB-INF/jsp/ride/home.jsp — home page and links to features.
-Use the existing application entry point and Maven project. Do not add a separate pom.xml or another Spring Boot application class for each module.
+## Core Modules
 
-# Before submitting your module
-- Include the Java classes, JSP pages, assets and supporting resources needed by your feature.
-- Check that your changes do not remove or overwrite another member's files.
-- Add the feature's home-page link in coordination with the team.
-- Check that the project builds and that your pages, assets and database operations work.
-- Keep SQL passwords, personal connection settings and local-only debug settings out of commits.
-- Leave out ZIP backups, target/, compiled .class files and personal IDE files.
-Database records are stored in SQL Server, not in the Git repository. Each member needs a working local database connection to run the project.
+| Module                       | Key Capabilities                                                                                                                                                   |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Ride Management**          | Map-based pickup and destination selection, vehicle selection, fare calculation, driver availability, ride acceptance, tracking and passenger booking history.     |
+| **Courier Delivery**         | Parcel booking, delivery partner workflows, tracking codes, delivery status updates, location tracking and delivery history.                                       |
+| **School Student Transport** | Parent and student records, bus and route information, transport schedules, arrival notifications and simulated vehicle tracking.                                  |
+| **Food & Grocery**           | Product browsing, shopping cart, order placement, customer order history, vendor management and delivery partner workflows.                                        |
+| **Vehicle Rental**           | Vehicle browsing, date-based availability, rental pricing, booking management and rental extensions.                                                               |
+| **Emergency Services**       | Requests for ambulance, fire, police and emergency agents; map-based location selection; tracking codes; location updates; and request cancellation with a reason. |
 
-# Update Cloned Data 
-    - in terminal
-1. git status
-2. git switch main
-git pull --ff-only origin main
+## Key Features
+
+* **Central service hub:** Access all six modules through one application.
+* **User-specific records:** View bookings and activity associated with the relevant user account.
+* **Separate driver access:** Maintain dedicated ride-driver authentication and portal workflows.
+* **Interactive maps:** Select locations and display geographical information.
+* **Status-based workflows:** Follow requests through their operational stages.
+* **Persistent storage:** Store application records in Microsoft SQL Server.
+* **Input validation:** Validate request data before processing.
+* **Light and dark themes:** Support different viewing preferences across the integrated interfaces.
+* **Emergency access:** Submit emergency requests without requiring a standard customer login.
+
+## Technology Stack
+
+| Layer                               | Technologies                                                   |
+| ----------------------------------- | -------------------------------------------------------------- |
+| **Backend**                         | Java 17, Spring Boot 3.2.5, Spring Web MVC                     |
+| **Persistence**                     | Spring Data JPA, Hibernate, Microsoft SQL Server               |
+| **Frontend**                        | JSP, JSTL, HTML, CSS, JavaScript, Bootstrap 5                  |
+| **Authentication & Access Control** | Spring Security, HTTP Sessions, BCrypt, Courier JWT components |
+| **Maps & Location**                 | Leaflet, OpenStreetMap, Nominatim, Browser Geolocation API     |
+| **Real-Time Messaging**             | Spring WebSocket, STOMP, SockJS                                |
+| **Supporting Libraries**            | Jakarta Bean Validation, Jackson, Lombok, Spring Boot Mail     |
+| **Build & Packaging**               | Apache Maven, Maven Wrapper, WAR                               |
+| **Testing**                         | JUnit 5, Spring Boot Test, MockMvc, Spring Security Test       |
+| **Version Control**                 | Git and GitHub                                                 |
+
+## Architecture
+
+NEXT GO follows a layered Spring MVC architecture:
+
+1. **Presentation layer** — JSP pages, stylesheets and JavaScript provide the user interface.
+2. **Controller layer** — Handles page navigation and HTTP requests.
+3. **Service layer** — Implements business rules, validation and workflow operations.
+4. **Repository layer** — Provides access to persistent application data.
+5. **Database layer** — Stores records in Microsoft SQL Server.
+
+The main application entry point is `WebTransApplication.java`.
+
+Module packages are organised under `src/main/java/com/webtrans`, JSP views under `src/main/webapp/WEB-INF/jsp`, and shared or module-specific assets under `src/main/resources/static`.
+
+## Software Engineering Concepts
+
+### Object-Oriented Programming
+
+The implementation uses classes and interfaces to represent domain entities and service responsibilities. Encapsulation, abstraction, inheritance and polymorphism are applied where appropriate, while Spring dependency injection connects application components.
+
+### Design Patterns
+
+Selected examples include:
+
+* **Strategy — Ride fare calculation:** Different vehicle categories use separate fare calculation strategies.
+* **Observer — School transport notifications:** Transport events notify registered observers.
+* **Simple Factory — Emergency service selection:** Service-specific behaviour is selected according to the requested emergency type.
+* **Strategy and Observer — Courier services:** Pricing strategies and parcel-status observers separate calculation and event-handling responsibilities.
+
+### CRUD Operations
+
+The modules provide create, read, update and delete or cancellation operations where appropriate. Operational records may use status changes or soft deletion to retain history.
+
+## Running the Project
+
+### Prerequisites
+
+* JDK 17
+* Microsoft SQL Server
+* Git
+* IntelliJ IDEA or another Java-compatible IDE
+* Internet access for Maven dependencies and external map services
+
+### Setup
+
+1. Clone this repository.
+2. Open the folder containing `pom.xml`.
+3. Reload the Maven project.
+4. Create or select a SQL Server database.
+5. Configure the database connection and required environment settings.
+6. Run `WebTransApplication` or use the Maven Wrapper:
+
+```powershell
+.\mvnw.cmd spring-boot:run
+```
+
+Open the application using the port configured by `server.port`.
+
+Keep database passwords, mail credentials and signing secrets in local configuration or environment variables rather than committing them to Git.
+
+## Testing
+
+Run the test suite using:
+
+```powershell
+.\mvnw.cmd test
+```
+
+Integration tests may require a correctly configured test database and supporting settings. Review the test output before treating a build as verified.
+
+Manual verification should cover authentication, record ownership, booking creation, status transitions, cancellation, map interactions and navigation between modules.
+
+## Project Scope
+
+NEXT GO is an academic prototype demonstrating integrated service workflows.
+
+School vehicle movement includes simulated GPS data. External map services and email functionality depend on their configuration and availability. Emergency requests demonstrate an application workflow and are not connected to official emergency dispatch services.
+
+## Collaboration
+
+The project was developed collaboratively, with responsibilities divided across the six main modules. Git and GitHub support version control and integration.
+
+Before merging changes, contributors should review affected files, preserve other modules’ behaviour, avoid committing generated files or credentials, and verify the relevant workflows.
+
+---
+
+**NEXT GO**
+*Integrated mobility and service management, developed through collaborative software engineering.*
