@@ -1,6 +1,7 @@
 package com.webtrans.ridebook.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "drivers")
@@ -15,6 +16,11 @@ public class Driver {
     private String vehicleType;
     private String phoneNumber;
     private String status;     // e.g., AVAILABLE, BUSY
+    
+    private Long userId;
+    private Double currentLat;
+    private Double currentLng;
+    private LocalDateTime lastLocationUpdate;
 
     public Driver() {}
 
@@ -36,4 +42,16 @@ public class Driver {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    public Long getUserId() { return userId; }
+    public void setUserId(Long userId) { this.userId = userId; }
+
+    public Double getCurrentLat() { return currentLat; }
+    public void setCurrentLat(Double currentLat) { this.currentLat = currentLat; }
+
+    public Double getCurrentLng() { return currentLng; }
+    public void setCurrentLng(Double currentLng) { this.currentLng = currentLng; }
+
+    public LocalDateTime getLastLocationUpdate() { return lastLocationUpdate; }
+    public void setLastLocationUpdate(LocalDateTime lastLocationUpdate) { this.lastLocationUpdate = lastLocationUpdate; }
 }

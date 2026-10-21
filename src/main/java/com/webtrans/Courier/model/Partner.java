@@ -20,15 +20,17 @@ public class Partner {
     // One partner = one user
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
-    private User user;
+    private CourierUser user;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "vehicle_type", nullable = false, length = 20)
     private VehicleType vehicleType;
 
+    @Builder.Default
     @Column(name = "is_online", nullable = false)
     private Boolean isOnline = false;
 
+    @Builder.Default
     @Column(name = "is_available", nullable = false)
     private Boolean isAvailable = true;
 
@@ -38,6 +40,7 @@ public class Partner {
     @Column(name = "current_lng", precision = 10, scale = 7)
     private BigDecimal currentLng;
 
+    @Builder.Default
     @Column(precision = 3, scale = 2)
     private BigDecimal rating = BigDecimal.valueOf(5.00);
 

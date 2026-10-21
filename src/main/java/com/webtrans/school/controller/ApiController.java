@@ -270,4 +270,25 @@ public class ApiController {
         svc.notify(st.parent.id, id, "SAFE_ARRIVAL", "Safe Arrival", st.fullName + " has arrived at " + st.schoolName + ".");
         return a;
     }
+
+    @GetMapping("/students/{id}/payment")
+    public Map<String, Object> payment(
+            @PathVariable Long id,
+            @RequestParam(required = false) Double distance
+    ) {
+        Student st = svc.student(id);
+        double dist = (distance != null && distance > 0) ? distance : 1.0;
+        double ratePerKm = 250.0;
+        double monthlyAmount = dist * ratePerKm;
+        return Map.of(
+                "studentId", id,
+                "studentName", st.fullName != null ? st.fullName : "Student",
+                "distanceKm", dist,
+                "ratePerKm", ratePerKm,
+                "monthlyAmount", monthlyAmount,
+                "currency", "LKR",
+                "billingCycle", "Monthly",
+                "calculation", dist + " KM * 250 LKR = " + (long) monthlyAmount + " LKR"
+        );
+    }
 }

@@ -1,29 +1,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="ctx" content="${pageContext.request.contextPath}" />
-    <title>Courier | Create a partner account</title>
-    <script>
-        (function(){
-          try {
-            document.documentElement.setAttribute(
-              "data-theme",
-              localStorage.getItem("courier.theme") || "light"
-            );
-          } catch (e) {
-            document.documentElement.setAttribute("data-theme", "light");
-          }
-        })();
-    </script>
+    <meta name="user-name" content="${courierUserName != null ? courierUserName : sharedUser.fullName}" />
+    <meta name="user-email" content="${courierUserEmail != null ? courierUserEmail : sharedUser.email}" />
+    <title>Courier | Deliver with NEXT GO</title>
+    <!-- Shared NextGo Theme -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/nextgo-theme.css" />
+    <script src="${pageContext.request.contextPath}/js/nextgo-theme.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css" />
     <script src="${pageContext.request.contextPath}/js/api.js"></script>
 </head>
 <body>
 
-<button class="theme-float" data-theme-btn title="Toggle theme">🌙</button>
+<button type="button" class="theme-float" data-theme-btn title="Toggle theme">🌙</button>
 
 <div class="auth-wrap">
     <div class="auth-card">
@@ -32,40 +26,44 @@
             courier<span>.</span>
         </div>
         <h2>Deliver parcels</h2>
-        <p class="tag">Create a partner account to earn on your schedule</p>
+        <p class="tag">Complete your partner profile to start earning on your schedule</p>
+
+        <div style="background: rgba(34, 197, 94, 0.08); border: 1px solid rgba(34, 197, 94, 0.25); border-radius: 8px; padding: 12px; margin-bottom: 18px; font-size: 0.88rem; color: var(--text-muted, #475569);">
+            Signed in as: <strong><c:out value="${courierUserName != null ? courierUserName : sharedUser.fullName}" /></strong> (<c:out value="${courierUserEmail != null ? courierUserEmail : sharedUser.email}" />)
+        </div>
+
+        <c:if test="${not empty error}">
+            <div style="background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; font-size: 0.88rem;">
+                <c:out value="${error}" />
+            </div>
+        </c:if>
 
         <div id="msgBox"></div>
 
-        <form id="regForm">
+        <form id="regForm" action="${pageContext.request.contextPath}/courier/register-partner" method="post">
             <div class="input-group">
-                <label for="name">Full name</label>
-                <input type="text" id="name" placeholder="Jane Silva" required>
-            </div>
-
-            <div class="grid-2">
-                <div class="input-group">
-                    <label for="email">Email address</label>
-                    <input type="email" id="email" placeholder="you@example.com" required autocomplete="email">
-                </div>
-                <div class="input-group">
-                    <label for="phone">Phone</label>
-                    <input type="tel" id="phone" placeholder="07XXXXXXXX" pattern="[0-9]{10}" title="Enter a 10-digit number">
-                </div>
+                <label for="vehicleType">Vehicle Type</label>
+                <select id="vehicleType" name="vehicleType" required style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border,#d1d5db);background:var(--input-bg,#fff);color:inherit;font-size:0.95rem;">
+                    <option value="BIKE" selected>Motorcycle / Scooter (Bike)</option>
+                    <option value="CAR">Car</option>
+                    <option value="VAN">Van</option>
+                    <option value="TRUCK">Truck</option>
+                </select>
             </div>
 
             <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="At least 6 characters" minlength="6" required autocomplete="new-password">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="07XXXXXXXX" pattern="[0-9]{10}" title="Enter a 10-digit number" />
             </div>
 
-            <button type="submit" class="auth-btn" id="submitBtn">Create partner account</button>
+            <button type="submit" class="auth-btn" id="submitBtn">Start Delivering</button>
         </form>
 
         <div class="footer-link">
-            Want to send instead? <a href="${pageContext.request.contextPath}/register">Sign up as a sender</a>
+            Want to send parcels instead? <a href="${pageContext.request.contextPath}/courier/sender">Send a parcel</a>
         </div>
-        <div class="footer-link">
-            Already have an account? <a href="${pageContext.request.contextPath}/login">Log in here</a>
+        <div class="footer-link" style="margin-top: 0.8rem;">
+            <a href="${pageContext.request.contextPath}/">← Return to Main Hub</a>
         </div>
     </div>
 </div>

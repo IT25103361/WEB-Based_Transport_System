@@ -4,6 +4,8 @@ import com.webtrans.school.dto.*;
 import com.webtrans.school.exception.NotFoundException;
 import com.webtrans.school.model.*;
 import com.webtrans.school.repository.*;
+import com.webtrans.school.observer.SchoolTransportEvent;
+import com.webtrans.school.observer.SchoolTransportEventPublisher;
 import com.webtrans.school.util.GeoUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,7 @@ public class TransportService {
     private final BusRouteRepository routes;
     private final RoutePathService pathService;
     private final MockGpsService mockGps;
+    private final SchoolTransportEventPublisher eventPublisher;
 
     public TransportService(
             ParentRepository parents,
@@ -40,7 +43,8 @@ public class TransportService {
             RouteStopRepository routeStops,
             BusRouteRepository routes,
             RoutePathService pathService,
-            MockGpsService mockGps
+            MockGpsService mockGps,
+            SchoolTransportEventPublisher eventPublisher
     ) {
         this.parents = parents;
         this.students = students;
@@ -53,6 +57,7 @@ public class TransportService {
         this.routes = routes;
         this.pathService = pathService;
         this.mockGps = mockGps;
+        this.eventPublisher = eventPublisher;
     }
 
     public Parent login(LoginRequest r) {
@@ -480,15 +485,7 @@ public class TransportService {
     }
 
     public void notify(Long parent, Long student, String type, String title, String msg) {
-        Notification n = new Notification();
-        n.parentId = parent;
-        n.studentId = student;
-        n.type = type;
-        n.title = title;
-        n.message = msg;
-        n.createdAt = LocalDateTime.now();
-        n.readStatus = false;
-        notifications.save(n);
+        eventPublisher.publishEvent(new SchoolTransportEvent(type, parent, student, title, msg));
     }
 
     public StudentArrival arrival(Long studentId) {

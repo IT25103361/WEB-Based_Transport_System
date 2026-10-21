@@ -6,24 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="ctx" content="${pageContext.request.contextPath}" />
   <title>Courier | Log in</title>
-  <script>
-    (function(){
-      try {
-        document.documentElement.setAttribute(
-          "data-theme",
-          localStorage.getItem("courier.theme") || "light"
-        );
-      } catch (e) {
-        document.documentElement.setAttribute("data-theme", "light");
-      }
-    })();
-  </script>
+  <!-- Shared NextGo Theme -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/nextgo-theme.css" />
+  <script src="${pageContext.request.contextPath}/js/nextgo-theme.js"></script>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css" />
   <script src="${pageContext.request.contextPath}/js/api.js"></script>
 </head>
 <body>
 
-<button class="theme-float" data-theme-btn title="Toggle theme">🌙</button>
+<button type="button" class="theme-float" data-theme-btn title="Toggle theme">🌙</button>
 
 <div class="auth-wrap">
   <div class="auth-card">
@@ -59,8 +50,9 @@
       <button type="submit" class="auth-btn" id="submitBtn">Log in</button>
     </form>
 
-    <div class="footer-link">New here? <a href="${pageContext.request.contextPath}/register">Create an account</a></div>
-    <div class="footer-link">Receiving a parcel? <a href="${pageContext.request.contextPath}/track">Track with a code</a></div>
+    <div class="footer-link">New here? <a href="${pageContext.request.contextPath}/courier/register">Create an account</a></div>
+    <div class="footer-link">Receiving a parcel? <a href="${pageContext.request.contextPath}/courier/track">Track with a code</a></div>
+    <div class="footer-link" style="margin-top: 1rem;"><a href="${pageContext.request.contextPath}/">← Return to Main Hub</a></div>
   </div>
 </div>
 

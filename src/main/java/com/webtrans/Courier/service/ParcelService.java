@@ -4,10 +4,10 @@ import com.webtrans.Courier.dto.parcel.CancelRequest;
 import com.webtrans.Courier.dto.parcel.CreateParcelRequest;
 import com.webtrans.Courier.dto.parcel.ParcelResponse;
 import com.webtrans.Courier.dto.parcel.StatusHistoryResponse;
+import com.webtrans.Courier.model.CourierUser;
 import com.webtrans.Courier.model.Otp;
 import com.webtrans.Courier.model.Parcel;
 import com.webtrans.Courier.model.StatusHistory;
-import com.webtrans.Courier.model.User;
 import com.webtrans.Courier.repository.*;
 import com.webtrans.Courier.service.pricing.PricingCalculator;
 import com.webtrans.Courier.util.TrackingCodeGenerator;
@@ -25,7 +25,7 @@ public class ParcelService {
 
     @Autowired private ParcelRepository parcelRepository;
     @Autowired private StatusHistoryRepository statusHistoryRepository;
-    @Autowired private UserRepository userRepository;
+    @Autowired private CourierUserRepository userRepository;
     @Autowired private AssignmentRepository assignmentRepository;
     @Autowired private OtpRepository otpRepository;
     @Autowired private TrackingCodeGenerator trackingCodeGenerator;
@@ -35,7 +35,7 @@ public class ParcelService {
     @Transactional
     public ParcelResponse createParcel(CreateParcelRequest request, String senderEmail) {
 
-        User sender = userRepository.findByEmail(senderEmail)
+        CourierUser sender = userRepository.findByEmail(senderEmail)
                 .orElseThrow(() -> new RuntimeException("Sender not found: " + senderEmail));
 
         Parcel parcel = Parcel.builder()
@@ -75,7 +75,7 @@ public class ParcelService {
 
     // ==================== READ ====================
     public List<ParcelResponse> getMyParcels(String senderEmail) {
-        User sender = userRepository.findByEmail(senderEmail)
+        CourierUser sender = userRepository.findByEmail(senderEmail)
                 .orElseThrow(() -> new RuntimeException("Sender not found"));
         return parcelRepository.findBySenderIdOrderByCreatedAtDesc(sender.getId())
                 .stream()

@@ -13,6 +13,9 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/school/css/animations.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/school/css/schedule.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/school/css/responsive.css">
+  <!-- Shared NextGo Theme -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/nextgo-theme.css">
+  <script src="${pageContext.request.contextPath}/js/nextgo-theme.js"></script>
 </head>
 <body data-page="schedule">
 <div id="app"></div>

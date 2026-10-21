@@ -3,10 +3,10 @@ package com.webtrans.Courier.service;
 import com.webtrans.Courier.dto.partner.CreatePartnerRequest;
 import com.webtrans.Courier.dto.partner.LocationUpdateRequest;
 import com.webtrans.Courier.dto.partner.PartnerResponse;
+import com.webtrans.Courier.model.CourierUser;
 import com.webtrans.Courier.model.Partner;
-import com.webtrans.Courier.model.User;
+import com.webtrans.Courier.repository.CourierUserRepository;
 import com.webtrans.Courier.repository.PartnerRepository;
-import com.webtrans.Courier.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,28 +17,43 @@ import java.math.BigDecimal;
 public class PartnerService {
 
     @Autowired private PartnerRepository partnerRepository;
-    @Autowired private UserRepository userRepository;
+    @Autowired private CourierUserRepository userRepository;
+    @Autowired private com.webtrans.auth.repository.UserRepository sharedUserRepository;
+    @Autowired private CourierProfileService courierProfileService;
 
     // ==================== REGISTER AS PARTNER ====================
     @Transactional
     public PartnerResponse registerAsPartner(CreatePartnerRequest request, String userEmail) {
 
-        User user = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new RuntimeException("User not found: " + userEmail));
+        CourierUser user = userRepository.findByEmail(userEmail)
+                .orElseGet(() -> {
+                    com.webtrans.auth.model.User shared = sharedUserRepository.findByEmail(userEmail)
+                            .orElseThrow(() -> new RuntimeException("User not found: " + userEmail));
+                    return courierProfileService.resolveProfile(shared).getProfile();
+                });
 
-        // Must be a PARTNER-role user
-        if (user.getRole() != User.Role.PARTNER) {
-            throw new RuntimeException("Only PARTNER-role users can register as delivery partners");
+        // Onboard user as PARTNER if they are currently SENDER
+        if (user.getRole() != CourierUser.Role.PARTNER) {
+            user.setRole(CourierUser.Role.PARTNER);
         }
+        if (request.getPhone() != null && !request.getPhone().isBlank()) {
+            user.setPhone(request.getPhone().trim());
+        }
+        userRepository.save(user);
 
-        // Prevent duplicate partner registration
+        // Update vehicle type if already registered as a partner
         if (partnerRepository.existsByUserId(user.getId())) {
-            throw new RuntimeException("User is already registered as a partner");
+            Partner existing = partnerRepository.findByUserId(user.getId()).orElseThrow();
+            if (request.getVehicleType() != null) {
+                existing.setVehicleType(request.getVehicleType());
+                existing = partnerRepository.save(existing);
+            }
+            return toResponse(existing);
         }
 
         Partner partner = Partner.builder()
                 .user(user)
-                .vehicleType(request.getVehicleType())
+                .vehicleType(request.getVehicleType() != null ? request.getVehicleType() : Partner.VehicleType.BIKE)
                 .isOnline(false)
                 .isAvailable(true)
                 .rating(BigDecimal.valueOf(5.00))
@@ -83,7 +98,7 @@ public class PartnerService {
 
     // ==================== HELPERS ====================
     private Partner findPartnerByEmail(String email) {
-        User user = userRepository.findByEmail(email)
+        CourierUser user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found: " + email));
 
         return partnerRepository.findByUserId(user.getId())

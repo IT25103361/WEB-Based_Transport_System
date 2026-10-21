@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradLux" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <linearGradient id="luxBody" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+    <linearGradient id="luxWindow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#312e81" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <linearGradient id="goldAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#fbbf24" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" fill="url(#bgGradLux)" rx="16" />
+  <line x1="20" y1="190" x2="380" y2="190" stroke="#334155" stroke-width="4" stroke-dasharray="16,8" />
+  <ellipse cx="200" cy="188" rx="145" ry="12" fill="#000" opacity="0.45" />
+  <!-- Luxury Sleek Body -->
+  <path d="M 50,152 Q 50,140 75,136 L 120,130 L 165,85 Q 180,72 205,72 L 275,72 Q 295,72 318,92 L 350,132 L 360,142 Q 365,148 365,160 L 365,168 Q 365,175 352,175 L 318,175 Q 308,152 282,152 Q 256,152 246,175 L 154,175 Q 144,152 118,152 Q 92,152 82,175 L 58,175 Q 50,175 50,168 Z" fill="url(#luxBody)" />
+  <!-- Chrome Trim -->
+  <path d="M 75,136 L 350,132" stroke="url(#goldAccent)" stroke-width="2" />
+  <!-- Tinted Windows -->
+  <path d="M 168,88 L 135,128 L 215,128 L 215,84 L 185,84 Q 175,84 168,88 Z" fill="url(#luxWindow)" stroke="url(#goldAccent)" stroke-width="1.5" />
+  <path d="M 225,84 L 225,128 L 332,128 L 305,92 Q 295,84 278,84 Z" fill="url(#luxWindow)" stroke="url(#goldAccent)" stroke-width="1.5" />
+  <!-- Sleek Headlight -->
+  <polygon points="345,136 365,142 362,150 338,148" fill="#e0e7ff" />
+  <!-- Wheels with Premium Alloys -->
+  <circle cx="118" cy="175" r="26" fill="#0f172a" stroke="url(#goldAccent)" stroke-width="4" />
+  <circle cx="118" cy="175" r="10" fill="#312e81" stroke="#cbd5e1" stroke-width="2" />
+  <circle cx="282" cy="175" r="26" fill="#0f172a" stroke="url(#goldAccent)" stroke-width="4" />
+  <circle cx="282" cy="175" r="10" fill="#312e81" stroke="#cbd5e1" stroke-width="2" />
+  <rect x="15" y="15" width="120" height="26" rx="13" fill="#8b5cf6" fill-opacity="0.25" stroke="url(#goldAccent)" stroke-width="1" />
+  <text x="75" y="32" font-family="'Inter', sans-serif" font-size="12" font-weight="bold" fill="#fcd34d" text-anchor="middle">LUXURY CLASS</text>
+</svg>

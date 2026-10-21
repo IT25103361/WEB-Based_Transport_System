@@ -39,7 +39,7 @@ public class StatusHistory {
     // Who triggered the change (nullable — system can also trigger)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "changed_by")
-    private User changedBy;
+    private CourierUser changedBy;
 
     @Column(name = "changed_at", nullable = false, updatable = false)
     private LocalDateTime changedAt;

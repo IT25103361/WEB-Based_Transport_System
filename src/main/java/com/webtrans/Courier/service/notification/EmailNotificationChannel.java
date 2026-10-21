@@ -36,7 +36,7 @@ public class EmailNotificationChannel implements NotificationChannel {
         System.out.println("  Subject: " + request.getSubject());
         System.out.println("  Body: " + request.getBody());
         if (request.getParcel() != null) {
-            System.out.println("  Track: http://localhost:8080/track.html?code="
+            System.out.println("  Track: /courier/track?code="
                     + request.getParcel().getTrackingCode());
         }
         System.out.println("==============================================");

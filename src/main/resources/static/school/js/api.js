@@ -47,6 +47,7 @@ const Api = (() => {
     deleteStudentTransport: id => request(`/students/${id}/transport`, { method: "DELETE" }),
     setBusTripMode: (busId, direction) => request(`/buses/${busId}/trip-mode?direction=${direction}`, { method:"POST" }),
     getArrivalStatus: id => request(`/students/${id}/arrival`),
+    getStudentPayment: (id, dist) => request(`/students/${id}/payment${dist ? '?distance=' + dist : ''}`),
     logout: () => { localStorage.removeItem("nextgo_token");localStorage.removeItem("nextgo_parent_id");localStorage.removeItem("nextgo_selected_student");localStorage.removeItem("nextgo_cached_students");location.href="login"; }
   };
 })();

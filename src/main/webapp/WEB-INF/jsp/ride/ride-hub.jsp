@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,18 +42,34 @@
             backdrop-filter: blur(10px);
         }
     </style>
+
+    <!-- NEXT GO Shared Theme -->
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/nextgo-theme.css">
+    <script src="${pageContext.request.contextPath}/js/nextgo-theme.js"></script>
 </head>
 <body>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark glass-navbar shadow-sm sticky-top">
     <div class="container px-4">
-        <a class="navbar-brand fw-bold" href="/ride/home">
+        <a class="navbar-brand fw-bold" href="${pageContext.request.contextPath}/ride/home">
             <i class="fa-solid fa-taxi text-warning me-2"></i> NEXT GO — Ride Management
         </a>
-        <a href="/ride/home" class="btn btn-outline-light btn-sm">
-            <i class="fa-solid fa-house me-1"></i> Main Hub
-        </a>
+        <div class="d-flex align-items-center gap-2">
+            <button type="button" class="nextgo-theme-toggle" data-nextgo-theme-toggle title="Toggle light/dark theme" aria-label="Toggle light/dark theme">🌙</button>
+            <c:if test="${sessionScope.loggedUser != null}">
+                <span class="text-white-50 small me-2">
+                    <i class="fa-solid fa-user-circle me-1 text-info"></i> <c:out value="${sessionScope.loggedUser.fullName}"/>
+                </span>
+                <a href="${pageContext.request.contextPath}/ride/logout" class="btn btn-outline-warning btn-sm">
+                    <i class="fa-solid fa-right-from-bracket me-1"></i> Logout
+                </a>
+            </c:if>
+            <a href="${pageContext.request.contextPath}/ride/home" class="btn btn-outline-light btn-sm">
+                <i class="fa-solid fa-house me-1"></i> Main Hub
+            </a>
+        </div>
     </div>
 </nav>
 
@@ -75,7 +92,7 @@
                     </div>
                     <h3 class="fw-bold mb-3 text-primary">Passenger Portal</h3>
                     <p class="text-muted mb-4 small px-2">Request rides with pickup and drop locations, auto-assign drivers, and view booking history.</p>
-                    <a href="/ride/passenger" class="btn btn-primary btn-lg w-100 fw-semibold py-2 shadow-sm">
+                    <a href="${pageContext.request.contextPath}/ride/passenger" class="btn btn-primary btn-lg w-100 fw-semibold py-2 shadow-sm">
                         <i class="fa-solid fa-arrow-right me-2"></i> Enter as Passenger
                     </a>
                 </div>
@@ -91,7 +108,7 @@
                     </div>
                     <h3 class="fw-bold mb-3 text-success">Driver Portal</h3>
                     <p class="text-muted mb-4 small px-2">View automatically assigned rides, track trip statuses, and mark completed jobs.</p>
-                    <a href="/ride/driver" class="btn btn-success btn-lg w-100 fw-semibold py-2 text-white shadow-sm">
+                    <a href="${pageContext.request.contextPath}/ride/driver" class="btn btn-success btn-lg w-100 fw-semibold py-2 text-white shadow-sm">
                         <i class="fa-solid fa-arrow-right me-2"></i> Enter as Driver
                     </a>
                 </div>

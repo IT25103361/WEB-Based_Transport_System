@@ -7,4 +7,5 @@ import java.util.*;
 public interface TransportScheduleRepository extends JpaRepository<TransportSchedule, Long> {
     Optional<TransportSchedule> findByStudentId(Long studentId);
     List<TransportSchedule> findByBusId(Long busId);
+    long countByActiveTrue();
 }

@@ -24,7 +24,7 @@ public class Parcel {
     // Who is sending
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id", nullable = false)
-    private User sender;
+    private CourierUser sender;
 
     // Receiver details (not a user account — just contact info)
     @Column(name = "receiver_name", nullable = false, length = 100)

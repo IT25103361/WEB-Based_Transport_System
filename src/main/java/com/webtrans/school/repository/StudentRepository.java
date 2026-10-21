@@ -6,4 +6,6 @@ import java.util.*;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
     List<Student> findByParentId(Long parentId);
+    long countByTransportStatus(String transportStatus);
+    List<Student> findTop20ByOrderByIdDesc();
 }

@@ -1,6 +1,6 @@
 package com.webtrans.Courier.dto.auth;
 
-import com.webtrans.Courier.model.User;
+import com.webtrans.Courier.model.CourierUser;
 import lombok.*;
 
 @Data
@@ -13,5 +13,5 @@ public class AuthResponse {
     private Long userId;
     private String name;
     private String email;
-    private User.Role role;
+    private CourierUser.Role role;
 }

@@ -11,4 +11,10 @@ public class CreatePartnerRequest {
 
     @NotNull(message = "Vehicle type is required")
     private Partner.VehicleType vehicleType;
+
+    private String phone;
+
+    public CreatePartnerRequest(Partner.VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
+    }
 }

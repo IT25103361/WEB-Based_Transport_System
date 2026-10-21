@@ -6,22 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="ctx" content="${pageContext.request.contextPath}" />
   <title>Courier | Create a sender account</title>
-  <script>
-    (function(){
-      try {
-        document.documentElement.setAttribute(
-          "data-theme",
-          localStorage.getItem("courier.theme") || "light"
-        );
-      } catch (e) { document.documentElement.setAttribute("data-theme","light"); }
-    })();
-  </script>
+  <!-- Shared NextGo Theme -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/nextgo-theme.css" />
+  <script src="${pageContext.request.contextPath}/js/nextgo-theme.js"></script>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css" />
   <script src="${pageContext.request.contextPath}/js/api.js"></script>
 </head>
 <body>
 
-<button class="theme-float" data-theme-btn title="Toggle theme">🌙</button>
+<button type="button" class="theme-float" data-theme-btn title="Toggle theme">🌙</button>
 
 <div class="auth-wrap">
   <div class="auth-card">
@@ -60,10 +53,13 @@
     </form>
 
     <div class="footer-link">
-      Want to deliver instead? <a href="${pageContext.request.contextPath}/register-partner">Sign up as a partner</a>
+      Want to deliver instead? <a href="${pageContext.request.contextPath}/courier/register-partner">Sign up as a partner</a>
     </div>
     <div class="footer-link" style="margin-top: 0.8rem;">
-      Already have an account? <a href="${pageContext.request.contextPath}/login">Log in here</a>
+      Already have an account? <a href="${pageContext.request.contextPath}/courier/login">Log in here</a>
+    </div>
+    <div class="footer-link" style="margin-top: 0.8rem;">
+      <a href="${pageContext.request.contextPath}/">← Return to Main Hub</a>
     </div>
   </div>
 </div>

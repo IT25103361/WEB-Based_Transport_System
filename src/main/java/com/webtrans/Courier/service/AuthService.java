@@ -3,8 +3,8 @@ package com.webtrans.Courier.service;
 import com.webtrans.Courier.dto.auth.AuthResponse;
 import com.webtrans.Courier.dto.auth.LoginRequest;
 import com.webtrans.Courier.dto.auth.RegisterRequest;
-import com.webtrans.Courier.model.User;
-import com.webtrans.Courier.repository.UserRepository;
+import com.webtrans.Courier.model.CourierUser;
+import com.webtrans.Courier.repository.CourierUserRepository;
 import com.webtrans.Courier.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,7 +20,7 @@ import java.util.Map;
 public class AuthService {
 
     @Autowired
-    private UserRepository userRepository;
+    private CourierUserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -34,13 +34,18 @@ public class AuthService {
     // ==================== REGISTER ====================
     public AuthResponse register(RegisterRequest request) {
 
+        // Enforce sender/partner roles on public registration (Never allow ADMIN assignment)
+        if (request.getRole() == CourierUser.Role.ADMIN) {
+            throw new RuntimeException("Public registration cannot assign ADMIN privileges");
+        }
+
         // 1. Check duplicate email
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("Email already registered: " + request.getEmail());
         }
 
         // 2. Build User entity
-        User user = User.builder()
+        CourierUser user = CourierUser.builder()
                 .name(request.getName())
                 .email(request.getEmail())
                 .phone(request.getPhone())
@@ -49,7 +54,7 @@ public class AuthService {
                 .build();
 
         // 3. Save
-        User saved = userRepository.save(user);
+        CourierUser saved = userRepository.save(user);
 
         // 4. Generate JWT
         Map<String, Object> claims = new HashMap<>();
@@ -79,7 +84,7 @@ public class AuthService {
         );
 
         // If we get here without exception → credentials are valid
-        User user = userRepository.findByEmail(request.getEmail())
+        CourierUser user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         // 2. Generate fresh JWT

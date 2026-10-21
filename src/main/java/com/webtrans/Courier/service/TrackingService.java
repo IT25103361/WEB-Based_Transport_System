@@ -48,20 +48,8 @@ public class TrackingService {
         Optional<Assignment> assignment = assignmentRepository.findByParcelId(parcel.getId());
         Partner partner = assignment.map(Assignment::getPartner).orElse(null);
 
-        // The OTP is only revealed once the partner has physically arrived, so it can't
-        // be harvested earlier by anyone who happens to know the tracking code.
-        String otpCode = null;
-        LocalDateTime otpExpiry = null;
-        if (parcel.getStatus() == Parcel.Status.ARRIVED) {
-            Otp otp = otpRepository.findByParcelId(parcel.getId()).orElse(null);
-            if (otp != null
-                    && !Boolean.TRUE.equals(otp.getVerified())
-                    && otp.getExpiresAt().isAfter(LocalDateTime.now())) {
-                otpCode = otp.getOtpCode();
-                otpExpiry = otp.getExpiresAt();
-            }
-        }
-
+        // Delivery OTP is strictly confidential for parcel delivery verification
+        // and must NOT be exposed to tracking-by-code viewers.
         return TrackingResponse.builder()
                 .parcelId(parcel.getId())
                 .trackingCode(parcel.getTrackingCode())
@@ -85,8 +73,8 @@ public class TrackingService {
                 .partnerLng(partner != null ? partner.getCurrentLng() : null)
                 .cancelReason(parcel.getCancelReason())
                 .cancelledBy(parcel.getCancelledBy())
-                .deliveryOtp(otpCode)
-                .otpExpiresAt(otpExpiry)
+                .deliveryOtp(null)
+                .otpExpiresAt(null)
                 .timeline(timeline)
                 .build();
     }

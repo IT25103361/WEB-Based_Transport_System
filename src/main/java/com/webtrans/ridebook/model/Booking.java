@@ -1,5 +1,6 @@
 package com.webtrans.ridebook.model;
 
+import com.webtrans.auth.model.User;
 import jakarta.persistence.*;
 
 @Entity
@@ -19,6 +20,17 @@ public class Booking {
     private String paymentMethod; // Added to match database column
     private Integer rating;
     private String reviewComment;
+    private String appliedOffer;
+    private Double finalFare;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "passenger_id")
+    private User passengerUser;
+    
+    private Double pickupLat;
+    private Double pickupLng;
+    private Double dropLat;
+    private Double dropLng;
 
     @ManyToOne
     @JoinColumn(name = "driver_id")
@@ -57,6 +69,43 @@ public class Booking {
 
     public String getReviewComment() { return reviewComment; }
     public void setReviewComment(String reviewComment) { this.reviewComment = reviewComment; }
+
+    public String getAppliedOffer() { return appliedOffer; }
+    public void setAppliedOffer(String appliedOffer) { this.appliedOffer = appliedOffer; }
+
+    public Double getFinalFare() { return finalFare; }
+    public void setFinalFare(Double finalFare) { this.finalFare = finalFare; }
+
+    public User getPassengerUser() { return passengerUser; }
+    public void setPassengerUser(User passengerUser) { this.passengerUser = passengerUser; }
+
+    public Long getPassengerId() {
+        return passengerUser != null ? passengerUser.getId() : null;
+    }
+
+    public void setPassengerId(Long passengerId) {
+        if (passengerId == null) {
+            this.passengerUser = null;
+        } else {
+            if (this.passengerUser == null || !passengerId.equals(this.passengerUser.getId())) {
+                User u = new User();
+                u.setId(passengerId);
+                this.passengerUser = u;
+            }
+        }
+    }
+
+    public Double getPickupLat() { return pickupLat; }
+    public void setPickupLat(Double pickupLat) { this.pickupLat = pickupLat; }
+
+    public Double getPickupLng() { return pickupLng; }
+    public void setPickupLng(Double pickupLng) { this.pickupLng = pickupLng; }
+
+    public Double getDropLat() { return dropLat; }
+    public void setDropLat(Double dropLat) { this.dropLat = dropLat; }
+
+    public Double getDropLng() { return dropLng; }
+    public void setDropLng(Double dropLng) { this.dropLng = dropLng; }
 
     public Driver getDriver() { return driver; }
     public void setDriver(Driver driver) { this.driver = driver; }

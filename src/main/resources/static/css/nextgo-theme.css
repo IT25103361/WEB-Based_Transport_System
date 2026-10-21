@@ -1,0 +1,563 @@
+/* ==============================================================================
+   NEXT GO — Shared Global Light / Dark Theme System
+   Consolidated styling token architecture for all modules:
+   Home, Ride, Courier, School, Vehicle Rental, Admin, and Emergency.
+   Root selector uses [data-theme="light"] and [data-theme="dark"].
+   ============================================================================== */
+
+:root,
+[data-theme="light"] {
+  --nextgo-bg: #f8fafc;
+  --nextgo-bg-elevated: #ffffff;
+  --nextgo-bg-subtle: #f1f5f9;
+  --nextgo-text: #0f172a;
+  --nextgo-text-muted: #64748b;
+  --nextgo-border: #e2e8f0;
+  --nextgo-border-subtle: #f1f5f9;
+  --nextgo-card-bg: #ffffff;
+  --nextgo-card-border: #e2e8f0;
+  --nextgo-input-bg: #ffffff;
+  --nextgo-input-border: #cbd5e1;
+  --nextgo-input-text: #0f172a;
+  --nextgo-modal-bg: #ffffff;
+  --nextgo-table-header-bg: #f8fafc;
+  --nextgo-table-row-hover: #f1f5f9;
+  --nextgo-toggle-bg: rgba(15, 23, 42, 0.08);
+  --nextgo-toggle-border: rgba(15, 23, 42, 0.18);
+  --nextgo-toggle-text: #0f172a;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --nextgo-bg: #0b1120;
+  --nextgo-bg-elevated: #0f172a;
+  --nextgo-bg-subtle: #1e293b;
+  --nextgo-text: #f8fafc;
+  --nextgo-text-muted: #94a3b8;
+  --nextgo-border: #1e293b;
+  --nextgo-border-subtle: #293548;
+  --nextgo-card-bg: #0f172a;
+  --nextgo-card-border: #1e293b;
+  --nextgo-input-bg: #1e293b;
+  --nextgo-input-border: #334155;
+  --nextgo-input-text: #f8fafc;
+  --nextgo-modal-bg: #0f172a;
+  --nextgo-table-header-bg: #1e293b;
+  --nextgo-table-row-hover: #1e293b;
+  --nextgo-toggle-bg: rgba(255, 255, 255, 0.12);
+  --nextgo-toggle-border: rgba(255, 255, 255, 0.22);
+  --nextgo-toggle-text: #f8fafc;
+  color-scheme: dark;
+}
+
+/* -----------------------------------------------------------------------------
+   Shared Toggle Button
+   ----------------------------------------------------------------------------- */
+.nextgo-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--nextgo-toggle-border);
+  background: var(--nextgo-toggle-bg);
+  color: var(--nextgo-toggle-text);
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+  line-height: 1;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.nextgo-theme-toggle:hover {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.nextgo-theme-toggle:focus-visible {
+  outline: 2px solid #06b6d4;
+  outline-offset: 2px;
+}
+
+/* Floating variant for centered auth pages */
+.nextgo-theme-float {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 1060;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--nextgo-toggle-border);
+  background: var(--nextgo-toggle-bg);
+  color: var(--nextgo-toggle-text);
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.nextgo-theme-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.nextgo-theme-float:focus-visible {
+  outline: 2px solid #06b6d4;
+  outline-offset: 2px;
+}
+
+/* -----------------------------------------------------------------------------
+   Dark Theme Rules — Base Surfaces & Text
+   ----------------------------------------------------------------------------- */
+[data-theme="dark"] body:not(.emergency-page):not(.school-body) {
+  background-color: var(--nextgo-bg);
+  color: var(--nextgo-text);
+}
+
+[data-theme="dark"] .bg-light,
+[data-theme="dark"] .bg-white {
+  background-color: var(--nextgo-card-bg) !important;
+  color: var(--nextgo-text) !important;
+}
+
+[data-theme="dark"] .text-dark {
+  color: var(--nextgo-text) !important;
+}
+
+[data-theme="dark"] .text-muted {
+  color: var(--nextgo-text-muted) !important;
+}
+
+[data-theme="dark"] .border-subtle,
+[data-theme="dark"] hr {
+  border-color: var(--nextgo-border) !important;
+}
+
+/* -----------------------------------------------------------------------------
+   Dark Theme Rules — Cards & Surfaces
+   ----------------------------------------------------------------------------- */
+[data-theme="dark"] .card:not(.bg-primary):not(.bg-success):not(.bg-danger):not(.bg-warning):not(.bg-info):not(.bg-dark):not(.hero-banner) {
+  background-color: var(--nextgo-card-bg);
+  border-color: var(--nextgo-border);
+  color: var(--nextgo-text);
+}
+
+[data-theme="dark"] .premium-card {
+  background: var(--nextgo-card-bg) !important;
+  border: 1px solid var(--nextgo-border) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
+  color: var(--nextgo-text) !important;
+}
+
+[data-theme="dark"] .role-card {
+  background: rgba(15, 23, 42, 0.92) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .role-card h4 {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .auth-card {
+  background: rgba(15, 23, 42, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #f8fafc !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6) !important;
+}
+
+[data-theme="dark"] .auth-card .form-label,
+[data-theme="dark"] .auth-card label {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .offer-card {
+  border-color: #334155 !important;
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .offer-card:hover {
+  background-color: #26334d !important;
+  border-color: #3b82f6 !important;
+}
+
+[data-theme="dark"] .offer-card.selected {
+  border-color: #10b981 !important;
+  background-color: rgba(16, 185, 129, 0.15) !important;
+}
+
+[data-theme="dark"] .vehicle-option {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+[data-theme="dark"] .vehicle-option:hover {
+  background: #26334d !important;
+  border-color: #3b82f6 !important;
+}
+
+[data-theme="dark"] .vehicle-option.selected {
+  border-color: #3b82f6 !important;
+  background: rgba(59, 130, 246, 0.2) !important;
+}
+
+[data-theme="dark"] .suggestions-box {
+  background: #0f172a !important;
+  border-color: #1e293b !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .suggestion-item:hover {
+  background: #1e293b !important;
+}
+
+[data-theme="dark"] .premium-table tbody tr {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="dark"] .trip-route-box {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+/* Vehicle Rental Dark Overrides */
+[data-theme="dark"] .filter-bar {
+  background: #0f172a !important;
+  border-color: #1e293b !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .vehicle-card {
+  background: #0f172a !important;
+  border-color: #1e293b !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .vehicle-card:hover {
+  border-color: #06b6d4 !important;
+}
+
+[data-theme="dark"] .vehicle-card.selected-vehicle-card {
+  border-color: #06b6d4 !important;
+  background: rgba(6, 182, 212, 0.12) !important;
+}
+
+[data-theme="dark"] .vehicle-card-body {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .vehicle-price-tag {
+  color: #38bdf8 !important;
+}
+
+[data-theme="dark"] .extension-history-item {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .quote-price-tag {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+/* -----------------------------------------------------------------------------
+   Dark Theme Rules — Forms, Inputs, Selects
+   ----------------------------------------------------------------------------- */
+[data-theme="dark"] input.form-control,
+[data-theme="dark"] textarea.form-control,
+[data-theme="dark"] select.form-select,
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+  background-color: var(--nextgo-input-bg) !important;
+  border-color: var(--nextgo-input-border) !important;
+  color: var(--nextgo-input-text) !important;
+}
+
+[data-theme="dark"] input.form-control::placeholder,
+[data-theme="dark"] textarea.form-control::placeholder {
+  color: #64748b !important;
+}
+
+[data-theme="dark"] input.form-control:focus,
+[data-theme="dark"] textarea.form-control:focus,
+[data-theme="dark"] select.form-select:focus {
+  background-color: #1e293b !important;
+  border-color: #06b6d4 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2) !important;
+}
+
+[data-theme="dark"] .input-group-text {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] select option {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] input[type="date"],
+[data-theme="dark"] input[type="time"],
+[data-theme="dark"] input[type="datetime-local"] {
+  color-scheme: dark;
+}
+
+/* -----------------------------------------------------------------------------
+   Dark Theme Rules — Tables & Lists
+   ----------------------------------------------------------------------------- */
+[data-theme="dark"] .table {
+  color: var(--nextgo-text) !important;
+  border-color: var(--nextgo-border) !important;
+}
+
+[data-theme="dark"] .table > :not(caption) > * > * {
+  background-color: transparent !important;
+  color: inherit !important;
+  border-bottom-color: var(--nextgo-border) !important;
+}
+
+[data-theme="dark"] .table-hover > tbody > tr:hover > * {
+  background-color: var(--nextgo-table-row-hover) !important;
+}
+
+[data-theme="dark"] .table-light,
+[data-theme="dark"] thead.table-light,
+[data-theme="dark"] .table thead th,
+[data-theme="dark"] .premium-table thead th {
+  background-color: var(--nextgo-table-header-bg) !important;
+  color: #94a3b8 !important;
+  border-bottom-color: var(--nextgo-border) !important;
+}
+
+[data-theme="dark"] .list-group-item {
+  background-color: var(--nextgo-card-bg) !important;
+  border-color: var(--nextgo-border) !important;
+  color: var(--nextgo-text) !important;
+}
+
+/* -----------------------------------------------------------------------------
+   Dark Theme Rules — Modals, Popovers, Dropdowns
+   ----------------------------------------------------------------------------- */
+[data-theme="dark"] .modal-content,
+[data-theme="dark"] .modal-content.glass-modal {
+  background: var(--nextgo-modal-bg) !important;
+  border: 1px solid var(--nextgo-border) !important;
+  color: var(--nextgo-text) !important;
+}
+
+[data-theme="dark"] .modal-header,
+[data-theme="dark"] .modal-footer {
+  border-color: var(--nextgo-border) !important;
+}
+
+[data-theme="dark"] .modal-header .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+[data-theme="dark"] .dropdown-menu {
+  background-color: var(--nextgo-modal-bg) !important;
+  border-color: var(--nextgo-border) !important;
+  color: var(--nextgo-text) !important;
+}
+
+[data-theme="dark"] .dropdown-item {
+  color: var(--nextgo-text) !important;
+}
+
+[data-theme="dark"] .dropdown-item:hover,
+[data-theme="dark"] .dropdown-item:focus {
+  background-color: #1e293b !important;
+  color: #38bdf8 !important;
+}
+
+/* -----------------------------------------------------------------------------
+   Dark Theme Rules — Nav Tabs & Pagination
+   ----------------------------------------------------------------------------- */
+[data-theme="dark"] .nav-tabs {
+  border-bottom-color: var(--nextgo-border) !important;
+}
+
+[data-theme="dark"] .nav-tabs .nav-link {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .nav-tabs .nav-link.active {
+  color: #38bdf8 !important;
+  border-bottom-color: #38bdf8 !important;
+}
+
+[data-theme="dark"] .pagination .page-link {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .pagination .page-item.active .page-link {
+  background-color: #0284c7 !important;
+  border-color: #0284c7 !important;
+  color: #ffffff !important;
+}
+
+/* -----------------------------------------------------------------------------
+   Main Hub Theme Support (Home Super App)
+   ----------------------------------------------------------------------------- */
+[data-theme="light"] body.home-super-app {
+  background: linear-gradient(rgba(241, 245, 249, 0.88), rgba(226, 232, 240, 0.94)),
+  url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed !important;
+  background-size: cover !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .home-super-app .glass-navbar {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="light"] .home-super-app .glass-navbar .navbar-brand {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .home-super-app .feature-card {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .home-super-app .feature-card h5 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .home-super-app .feature-card p {
+  color: #475569 !important;
+}
+
+/* -----------------------------------------------------------------------------
+   Admin Dashboard Theme Rules
+   ----------------------------------------------------------------------------- */
+[data-theme="dark"] .admin-main {
+  background-color: #0b1120 !important;
+}
+
+[data-theme="dark"] .admin-topbar {
+  background: #0f172a !important;
+  border-bottom-color: #1e293b !important;
+}
+
+[data-theme="dark"] .admin-card,
+[data-theme="dark"] .admin-table-card,
+[data-theme="dark"] .admin-chart-card,
+[data-theme="dark"] .admin-activity-card {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .admin-metric-card {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+}
+
+[data-theme="dark"] .admin-metric-num {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .admin-activity-item {
+  border-bottom-color: #1e293b !important;
+}
+
+[data-theme="dark"] .admin-table tbody tr:hover {
+  background-color: #1e293b !important;
+}
+
+[data-theme="dark"] .admin-quick-filter-btn {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .admin-quick-filter-btn.active {
+  background: #0284c7 !important;
+  border-color: #0284c7 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .admin-date-input {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+/* Admin Login Dark/Light Adjustments */
+[data-theme="light"] body.admin-login-body-page {
+  background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 50%, #f8fafc 100%) !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .admin-login-body-page .admin-login-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12) !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .admin-login-body-page .admin-login-header h3 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .admin-login-body-page .admin-login-header p {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .admin-login-body-page .form-label {
+  color: #475569 !important;
+}
+
+/* -----------------------------------------------------------------------------
+   Map Controls Protection — Never invert maps, pins, or markers
+   ----------------------------------------------------------------------------- */
+.leaflet-tile-pane,
+.leaflet-marker-pane,
+.leaflet-popup-pane,
+.leaflet-overlay-pane {
+  filter: none !important;
+}
+
+[data-theme="dark"] .leaflet-control-zoom a {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+[data-theme="dark"] .leaflet-control-attribution {
+  background-color: rgba(15, 23, 42, 0.8) !important;
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .leaflet-popup-content-wrapper {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .leaflet-popup-tip {
+  background: #0f172a !important;
+}

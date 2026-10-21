@@ -2,12 +2,12 @@ package com.webtrans.Courier.service;
 
 import com.webtrans.Courier.dto.parcel.PayRequest;
 import com.webtrans.Courier.dto.parcel.PaymentResponse;
+import com.webtrans.Courier.model.CourierUser;
 import com.webtrans.Courier.model.Parcel;
 import com.webtrans.Courier.model.Payment;
-import com.webtrans.Courier.model.User;
+import com.webtrans.Courier.repository.CourierUserRepository;
 import com.webtrans.Courier.repository.ParcelRepository;
 import com.webtrans.Courier.repository.PaymentRepository;
-import com.webtrans.Courier.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +20,7 @@ public class PaymentService {
 
     @Autowired private PaymentRepository paymentRepository;
     @Autowired private ParcelRepository parcelRepository;
-    @Autowired private UserRepository userRepository;
+    @Autowired private CourierUserRepository userRepository;
 
     @Transactional
     public PaymentResponse pay(Long parcelId, PayRequest request, String senderEmail) {
@@ -29,7 +29,7 @@ public class PaymentService {
         Parcel parcel = parcelRepository.findById(parcelId)
                 .orElseThrow(() -> new RuntimeException("Parcel not found: " + parcelId));
 
-        User sender = userRepository.findByEmail(senderEmail)
+        CourierUser sender = userRepository.findByEmail(senderEmail)
                 .orElseThrow(() -> new RuntimeException("Sender not found"));
 
         if (!parcel.getSender().getId().equals(sender.getId())) {
@@ -65,7 +65,7 @@ public class PaymentService {
         Parcel parcel = parcelRepository.findById(parcelId)
                 .orElseThrow(() -> new RuntimeException("Parcel not found: " + parcelId));
 
-        User sender = userRepository.findByEmail(senderEmail)
+        CourierUser sender = userRepository.findByEmail(senderEmail)
                 .orElseThrow(() -> new RuntimeException("Sender not found"));
 
         if (!parcel.getSender().getId().equals(sender.getId())) {

@@ -1,6 +1,6 @@
 package com.webtrans.Courier.dto.auth;
 
-import com.webtrans.Courier.model.User;
+import com.webtrans.Courier.model.CourierUser;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -28,5 +28,5 @@ public class RegisterRequest {
     private String password;
 
     @NotNull(message = "Role is required")
-    private User.Role role;
+    private CourierUser.Role role;
 }

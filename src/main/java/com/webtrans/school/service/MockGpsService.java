@@ -3,6 +3,8 @@ package com.webtrans.school.service;
 import com.webtrans.school.model.*;
 import com.webtrans.school.repository.*;
 import com.webtrans.school.util.GeoUtil;
+import com.webtrans.school.observer.SchoolTransportEvent;
+import com.webtrans.school.observer.SchoolTransportEventPublisher;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,7 @@ public class MockGpsService {
     private final RoutePathService pathService;
     private final TransportScheduleRepository schedules;
     private final StudentRepository students;
+    private final SchoolTransportEventPublisher eventPublisher;
 
     // Bus state
     private final Map<Long, Integer> busStepMap = new ConcurrentHashMap<>();
@@ -41,7 +44,8 @@ public class MockGpsService {
             StudentArrivalRepository arrivals,
             RoutePathService pathService,
             TransportScheduleRepository schedules,
-            StudentRepository students
+            StudentRepository students,
+            SchoolTransportEventPublisher eventPublisher
     ) {
         this.locations = locations;
         this.buses = buses;
@@ -51,6 +55,7 @@ public class MockGpsService {
         this.pathService = pathService;
         this.schedules = schedules;
         this.students = students;
+        this.eventPublisher = eventPublisher;
     }
 
     public void setTripMode(Long busId, String mode) {
@@ -153,15 +158,10 @@ public class MockGpsService {
                             notifiedStops.add(notifyKey);
                             Student st = students.findById(s.studentId).orElse(null);
                             if (st != null && st.parent != null) {
-                                Notification n = new Notification();
-                                n.parentId = st.parent.id;
-                                n.studentId = st.id;
-                                n.type = (activeRouteId == 1L) ? "BUS_AT_PICKUP" : "BUS_AT_DROPOFF";
-                                n.title = (activeRouteId == 1L) ? "Bus Arrived at Pickup" : "Bus Arrived at Drop-off";
-                                n.message = "School Bus " + bus.registrationNumber + " has arrived at " + stop.stopName + " for " + st.fullName + ".";
-                                n.createdAt = LocalDateTime.now();
-                                n.readStatus = false;
-                                notifications.save(n);
+                                String eventType = (activeRouteId == 1L) ? "BUS_AT_PICKUP" : "BUS_AT_DROPOFF";
+                                String title = (activeRouteId == 1L) ? "Bus Arrived at Pickup" : "Bus Arrived at Drop-off";
+                                String message = "School Bus " + bus.registrationNumber + " has arrived at " + stop.stopName + " for " + st.fullName + ".";
+                                eventPublisher.publishEvent(new SchoolTransportEvent(eventType, st.parent.id, st.id, title, message));
                             }
                         }
                         break;

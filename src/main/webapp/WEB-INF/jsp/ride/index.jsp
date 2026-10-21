@@ -8,15 +8,21 @@
     <title>Cab & Ride Booking System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <!-- NEXT GO Shared Theme -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/nextgo-theme.css">
+    <script src="${pageContext.request.contextPath}/js/nextgo-theme.js"></script>
 </head>
 <body class="bg-light">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-    <div class="container-fluid px-4">
+    <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
         <a class="navbar-brand fw-bold" href="#">
             <i class="fa-solid fa-taxi text-warning me-2"></i> NextGo Ride Booking System
         </a>
-        <span class="text-white-50 small"><i class="fa-solid fa-circle text-success me-1"></i> Port: 8081</span>
+        <div class="d-flex align-items-center gap-3">
+            <button type="button" class="nextgo-theme-toggle" data-nextgo-theme-toggle title="Toggle light/dark theme" aria-label="Toggle light/dark theme">🌙</button>
+            <span class="text-white-50 small"><i class="fa-solid fa-circle text-success me-1"></i> Port: 8081</span>
+        </div>
     </div>
 </nav>
 

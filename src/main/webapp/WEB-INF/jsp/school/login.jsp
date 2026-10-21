@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/school/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/school/css/animations.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/school/css/responsive.css">
+    <!-- Shared NextGo Theme -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/nextgo-theme.css">
+    <script src="${pageContext.request.contextPath}/js/nextgo-theme.js"></script>
 </head>
 <body class="login-page">
 <main class="login-shell">
@@ -94,18 +97,26 @@
         if (text) text.textContent = isDark ? "Light" : "Dark";
     }
     function toggleLoginTheme() {
-        const current = localStorage.getItem("nextgo_theme") || "light";
+        if (window.NextGoTheme && typeof window.NextGoTheme.toggle === "function") {
+            window.NextGoTheme.toggle();
+            return;
+        }
+        const current = localStorage.getItem("nextgo.theme") || localStorage.getItem("nextgo_theme") || "light";
         const next = current === "dark" ? "light" : "dark";
+        localStorage.setItem("nextgo.theme", next);
         localStorage.setItem("nextgo_theme", next);
         document.documentElement.setAttribute("data-theme", next);
         document.body.setAttribute("data-theme", next);
         updateThemeBtn(next);
     }
     (function() {
-        const savedTheme = localStorage.getItem("nextgo_theme") || "light";
+        const savedTheme = localStorage.getItem("nextgo.theme") || localStorage.getItem("nextgo_theme") || "light";
         document.documentElement.setAttribute("data-theme", savedTheme);
-        document.body.setAttribute("data-theme", savedTheme);
+        if (document.body) document.body.setAttribute("data-theme", savedTheme);
         document.addEventListener("DOMContentLoaded", () => updateThemeBtn(savedTheme));
+        window.addEventListener("nextgo:themechange", (e) => {
+            if (e.detail && e.detail.theme) updateThemeBtn(e.detail.theme);
+        });
     })();
 </script>
 <script src="${pageContext.request.contextPath}/school/js/api.js"></script>

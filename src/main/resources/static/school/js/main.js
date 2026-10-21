@@ -25,15 +25,23 @@ const Pages = {
 };
 
 /* -----------------------------------------------------------------------------
-   Theme Engine (Light Theme as DEFAULT)
+   Theme Engine (Consolidated with shared NextGoTheme)
    ----------------------------------------------------------------------------- */
 function getAppTheme() {
-  return localStorage.getItem("nextgo_theme") || "light";
+  if (window.NextGoTheme) return window.NextGoTheme.getTheme();
+  return localStorage.getItem("nextgo.theme") || localStorage.getItem("nextgo_theme") || "light";
 }
 
 function setAppTheme(theme) {
+  if (window.NextGoTheme) {
+    window.NextGoTheme.setTheme(theme);
+    return;
+  }
   const t = theme === "dark" ? "dark" : "light";
-  localStorage.setItem("nextgo_theme", t);
+  try {
+    localStorage.setItem("nextgo.theme", t);
+    localStorage.setItem("nextgo_theme", t);
+  } catch (e) {}
   document.documentElement.setAttribute("data-theme", t);
   if (document.body) document.body.setAttribute("data-theme", t);
 
@@ -46,6 +54,10 @@ function setAppTheme(theme) {
 }
 
 function toggleAppTheme() {
+  if (window.NextGoTheme) {
+    window.NextGoTheme.toggleTheme();
+    return;
+  }
   const current = getAppTheme();
   setAppTheme(current === "dark" ? "light" : "dark");
 }
